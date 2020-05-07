@@ -17,6 +17,6 @@ class CustomUserAdmin(UserAdmin):
 
 
 # Register your models here.
-app_models = [Doctor, Patient, Appointment, Report]
+app_models = [Doctor, Patient, Appointment, Report, Receipt]
 admin.site.register(app_models)
 admin.site.register(CustomUser,CustomUserAdmin)

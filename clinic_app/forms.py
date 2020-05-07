@@ -1,19 +1,25 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm,UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import *
 
 class  CustomUserCreationForm(UserCreationForm):
-    Post=[('Doctor','Doctor'),('Patient','Patient')]
-    Position = forms.ChoiceField(choices=Post, widget=forms.RadioSelect)
+    #Post=[('Doctor','Doctor'),('Patient','Patient')]
+    #Position = forms.ChoiceField(choices=Post, widget=forms.RadioSelect)
     class Meta:
         model=CustomUser
-        fields=['username','email','Position']
+        fields=['username','email' ]
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model=CustomUser
         fields=['username','email']
+
+
+
+
+
 Degrees = (
+        ('None', 'None'),
         ('MBBS', 'MBBS'),
         ('BDS', 'BDS'),
         ('BHMS', 'BHMS'),
@@ -52,9 +58,12 @@ class DoctorForm(forms.ModelForm):
 
     class Meta:
         model=Doctor
-        fields=['username','quali','postgrad','special']
+        fields=['quali','postgrad','special']
 
-
+class ReceiptForm(forms.ModelForm):
+    class Meta:
+        model=Receipt
+        fields=['date', 'time', 'price','doctor','patient']
 
 class PatientForm(forms.ModelForm):
     dob=forms.DateField()
@@ -62,3 +71,8 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model=Patient
         fields=['username','dob','doctor']
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['doctor', 'patient', 'type', 'date', 'start_time', 'end_time']
